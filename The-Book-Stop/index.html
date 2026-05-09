@@ -912,11 +912,18 @@
   const bookingForm    = document.getElementById("bookingForm");
   const confirmation   = document.getElementById("bookingConfirmation");
 
+  function formatDateForInput(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  }
+
   function setMinDate() {
     const d = new Date();
-    d.setHours(0,0,0,0);
+    d.setHours(0, 0, 0, 0);
     d.setDate(d.getDate() + 2);
-    startDate.min = d.toISOString().split("T")[0];
+    startDate.min = formatDateForInput(d);
   }
 
   function updateReturnDate() {
@@ -924,7 +931,7 @@
     secondBookArea.style.display = (days === 5) ? "block" : "none";
     if (days !== 5) bookTwo.value = "";
     if (!days || !startDate.value) { returnDate.value = ""; return; }
-    const d = new Date(startDate.value);
+    const d = new Date(startDate.value + "T00:00:00");
     d.setDate(d.getDate() + days);
     returnDate.value = d.toLocaleDateString("en-SG", { weekday:"long", day:"numeric", month:"long", year:"numeric" });
   }
@@ -1068,13 +1075,13 @@
     e.preventDefault();
     hideConfirmation();
 
-    const start = new Date(startDate.value);
+    const selectedDate = new Date(startDate.value + "T00:00:00");
     const earliest = new Date();
-    earliest.setHours(0,0,0,0);
+    earliest.setHours(0, 0, 0, 0);
     earliest.setDate(earliest.getDate() + 2);
 
-    if (start < earliest) {
-      showMsg(confirmation, "Please choose a start date at least 2 days from today.", "error");
+    if (selectedDate < earliest) {
+      showMsg(confirmation, "Please choose a start date at least 2 days in advance.", "error");
       return;
     }
 
