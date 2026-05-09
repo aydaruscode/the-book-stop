@@ -1162,6 +1162,27 @@
 
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwQuHcBIS79FOTeF3B2QJC_6qYteJ9elsRWqgUf8Trf4kh_TduLUkpFkdySXVVbiZQk/exec";
 
+  function applyBorrowedBooks(borrowedBooks) {
+    const borrowedSet = new Set((borrowedBooks || []).map(title => String(title).trim().toLowerCase()));
+
+    books.forEach(book => {
+      book.available = !borrowedSet.has(book.title.trim().toLowerCase());
+    });
+
+    renderBooks();
+  }
+
+  async function loadBorrowedBooks() {
+    try {
+      const response = await fetch(SCRIPT_URL);
+      const data = await response.json();
+      applyBorrowedBooks(data.borrowedBooks || []);
+    } catch (error) {
+      console.warn("Could not load live book availability. Showing default availability.", error);
+      renderBooks();
+    }
+  }
+
   bookingForm.addEventListener("submit", async function(e) {
     e.preventDefault();
     hideConfirmation();
@@ -1215,8 +1236,6 @@
 
       first.available = false;
       if (second) second.available = false;
-      saveBooks();
-
       const booksLine = bookingData.bookTwo
         ? `${bookingData.bookOne}<br>${bookingData.bookTwo}`
         : bookingData.bookOne;
@@ -1249,7 +1268,7 @@
   });
 
   setMinDate();
-  renderBooks();
+  loadBorrowedBooks();
 </script>
 </body>
 </html>
