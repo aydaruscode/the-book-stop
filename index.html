@@ -16,18 +16,18 @@
     }
 
     :root {
-      --cream:      #fdf6ec;
-      --cream-mid:  #f5e8d2;
-      --cream-deep: #e8d0af;
-      --brown-light:#c9a07a;
-      --brown:      #8b5e3c;
-      --brown-dark: #4a2e1a;
-      --brown-ink:  #2c1a0e;
-      --sage:       #8fa888;
-      --sage-light: #d6e5d3;
-      --rust:       #b84a2e;
-      --rust-light: #f5ddd7;
-      --white:      #fffef9;
+      --cream:      #fff3f8;
+      --cream-mid:  #f8dce9;
+      --cream-deep: #efb8cf;
+      --brown-light:#c982a3;
+      --brown:      #a94f7a;
+      --brown-dark: #6f2348;
+      --brown-ink:  #351322;
+      --sage:       #9fb58f;
+      --sage-light: #e5f0df;
+      --rust:       #b84a5f;
+      --rust-light: #f8d8df;
+      --white:      #fffafd;
     }
 
     html, body {
@@ -114,8 +114,8 @@
       text-align: center;
       padding: 68px 0 54px;
       background:
-        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.85) 0%, transparent 65%),
-        linear-gradient(170deg, var(--cream) 0%, var(--cream-deep) 100%);
+        radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.92) 0%, transparent 65%),
+        linear-gradient(170deg, #fff6fa 0%, #f4bdd3 100%);
       position: relative;
       overflow: hidden;
     }
@@ -423,7 +423,7 @@
       box-shadow: 0 10px 30px rgba(74,46,26,0.1);
     }
     .book-card.selected {
-      background: #f9efe3;
+      background: #fdeaf2;
       border-color: var(--brown);
       box-shadow: 0 10px 32px rgba(74,46,26,0.15);
     }
@@ -862,7 +862,7 @@
               <div>
                 <label for="startDate">Start date</label>
                 <input type="date" id="startDate" name="Start date" required>
-                <div class="field-note">Please book at least 2 days in advance.</div>
+                <div class="field-note">Please book at least 2 days in advance. Books are brought to school only on Mondays, Wednesdays, and Fridays, so please choose one of these days as your start date.</div>
               </div>
             </div>
 
@@ -1251,6 +1251,18 @@
           <strong>Book(s):</strong><br>${booksLine}
         </div>
         <p style="margin-top:14px;">Payment is by cash when the book is received at school. Happy reading!</p>
+
+        <div style="
+          margin-top:16px;
+          padding-top:14px;
+          border-top:1px solid rgba(0,0,0,0.08);
+          font-size:13px;
+          line-height:1.6;
+          color:#6b5b4d;
+          text-align:center;
+        ">
+          Please screenshot this page so you can remember your book and return date.
+        </div>
       `;
       confirmation.className = "confirmation success";
       confirmation.style.display = "block";
